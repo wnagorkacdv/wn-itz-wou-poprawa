@@ -1,0 +1,31 @@
+Link do GIT: https://github.com/wnagorkacdv/wn-itz-wou-poprawa
+
+Zadanie 2:
+
+select contactFirstName, contactLastName, count(*) as numOfOrders
+from customers natural join orders 
+group by customerNumber
+
+Zadanie 4:
+a)
+
+select productName, extract(year from orderDate) as year, sum(quantityOrdered) as number
+from (orders natural join orderdetails) natural join products
+where productName in ('1952 Alpine Renault 1300', '1968 Ford Mustang', '1996 Moto Guzzi 1100i') 
+group by productName, year
+
+
+b)
+
+select extract(year from orderDate) as year, extract(month from orderDate) as month, sum(quantityOrdered * priceEach) as moneyForSales
+from (orders natural join orderdetails) natural join products
+where productName LIKE '%Harley%'
+group by year, month
+
+
+c)
+
+select productLine, count(*) as numberOfProducts
+from products
+group by productLine
+having numberOfProducts > 10 and numberOfProducts < 20
